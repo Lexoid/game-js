@@ -304,3 +304,16 @@ level.actors.forEach(actor => console.log(`(${actor.pos.x}:${actor.pos.y}) ${act
 
 
 
+class Player extends Actor {
+  constructor(pos = new Vector(0,0), size = new Vector(1,1), speed = new Vector(0,0)) {
+    super(pos);
+    this.pos.x = pos.x
+    this.pos.y = pos.y - 0.5;
+    this.size.x = 0.8;
+    this.size.y = 1.5;    
+    Object.defineProperty(this, "type", {      
+      writable: true, 
+    });
+    this.type = 'player';
+  }
+}
