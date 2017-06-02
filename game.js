@@ -26,12 +26,6 @@ class Actor {
     this.height = this.size.y;
     this.speed = speed;
     this._type = 'actor';
-   
-    // this.type = 'actor';
-    // Object.defineProperty(this, "type", {
-      // type : 'actor',
-      // writable: false,
-    // });
     Object.defineProperty(this, "left", {
       get: function() {
         return this.pos.x;
@@ -68,18 +62,14 @@ class Actor {
   act() {}
 }
 
-const isType = (num) => {
-  return num - Math.floor(num) !== 0 ? false : true;
-};
-
 class Level {
   constructor(grid = [], actors = []) {
-    this.height = grid.length; // высота игрового поля, координата Y 
-    this.width = grid.reduce((width, line) => line.length > width ? line.length : width, 0); // X
-    this.grid = grid; // сетка игрового поля
-    this.actors = actors; // список объектов
-    this.player = this.actors.find(actor => actor.type === 'player'); // игрок
-    this.status = null; // сосотояние прохождения уровня
+    this.height = grid.length;
+    this.width = grid.reduce((width, line) => line.length > width ? line.length : width, 0);
+    this.grid = grid;
+    this.actors = actors;
+    this.player = this.actors.find(actor => actor.type === 'player');
+    this.status = null;
     this.finishDelay = 1;
   }
   isFinished() {
@@ -104,10 +94,10 @@ class Level {
     if (!(pos instanceof Vector) || !(size instanceof Vector)) {
       throw new SyntaxError("Можно прибавлять к вектору только вектор типа Vector");
     }    
-    let xStart = Math.floor(pos.x); // Округление вниз до ближайшего целого, горизонтальная
-    let xEnd = Math.ceil(pos.x + size.x); // Округление вверх до ближайшего целого, размер горз.
-    let yStart = Math.floor(pos.y); // Округление вниз до ближайшего целого, вертикальная
-    let yEnd = Math.ceil(pos.y + size.y); // Округление вверх до ближайшего целого, размер верт.
+    let xStart = Math.floor(pos.x);
+    let xEnd = Math.ceil(pos.x + size.x);
+    let yStart = Math.floor(pos.y);
+    let yEnd = Math.ceil(pos.y + size.y);
     if (xStart < 0 || xEnd > this.width || yStart < 0) {
       return "wall";
     }
@@ -141,8 +131,7 @@ class Level {
     if (touchType === 'lava' || touchType === 'fireball') {
       this.status = 'lost';
     } else if (touchType === 'coin') {
-      this.removeActor(actor);
-      // if (!this.actors.filter(actor => actor.type === 'coin').length) {
+      this.removeActor(actor);      
       if (this.noMoreActors('coin')) {
         this.status = 'won';
       }
