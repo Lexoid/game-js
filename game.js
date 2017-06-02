@@ -25,11 +25,13 @@ class Actor {
     this.width = this.size.x;
     this.height = this.size.y;
     this.speed = speed;
-    this.type = 'actor';
-    Object.defineProperty(this, "type", {
-      type : 'actor',
-      writable: false,
-    });
+    this._type = 'actor';
+   
+    // this.type = 'actor';
+    // Object.defineProperty(this, "type", {
+      // type : 'actor',
+      // writable: false,
+    // });
     Object.defineProperty(this, "left", {
       get: function() {
         return this.pos.x;
@@ -51,6 +53,9 @@ class Actor {
       }
     });
   }
+  get type() {
+    return this._type;
+  }
   isIntersect(actor) {
     if (!(actor instanceof Actor)) {
       throw new SyntaxError("Ожидается движущийся объект типа Actor");
@@ -62,6 +67,10 @@ class Actor {
   }
   act() {}
 }
+
+const isType = (num) => {
+  return num - Math.floor(num) !== 0 ? false : true;
+};
 
 class Level {
   constructor(grid = [], actors = []) {
