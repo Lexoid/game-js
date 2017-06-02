@@ -182,9 +182,9 @@ class LevelParser {
       let line = row.split('');
       let y = indexY++;
       line.forEach(cell => {
-        if (cell === line[line.indexOf(cell)] && cell === line[line.indexOf(cell)] && typeof (this.dictionaryActors[line[line.indexOf(cell)]]) === 'function') {
+        if (cell === line[line.indexOf(cell)] && cell === line[line.indexOf(cell)] && typeof (this.dictionaryActors[line[line.indexOf(cell)]]) === 'function' && (new this.dictionaryActors[line[line.indexOf(cell)]]() instanceof Actor)) {
           grid.push(new this.dictionaryActors[line[line.indexOf(cell)]]((new Vector (line.indexOf(cell), y))));
-          line[line.indexOf(cell)] = this.dictionaryActors.o;
+          line[line.indexOf(cell)] = this.dictionaryActors; 
         }
       });
     });
