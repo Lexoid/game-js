@@ -182,7 +182,7 @@ class LevelParser {
       let line = row.split('');
       let y = indexY++;
       line.forEach(cell => {
-        if (cell === line[line.indexOf(cell)] && this.dictionaryActors[line[line.indexOf(cell)]] !== undefined) {
+        if (cell === line[line.indexOf(cell)] && cell === line[line.indexOf(cell)] && typeof (this.dictionaryActors[line[line.indexOf(cell)]]) === 'function') {
           grid.push(new this.dictionaryActors[line[line.indexOf(cell)]]((new Vector (line.indexOf(cell), y))));
           line[line.indexOf(cell)] = this.dictionaryActors.o;
         }
@@ -302,8 +302,8 @@ const schemas = [
     "                    ",
     "                    ",
     " @    o x o   o   o ",
-    "xxxxxxxxxxxxxxxxxxx ",
-    "!!!!!!!!!!!!!!!!!!!!",
+    " xxxxxxxxxxxxxxxxxx ",
+    " !!!!!!!!!!!!!!!!!!!",
   ],
   [
     "                  =    ",
